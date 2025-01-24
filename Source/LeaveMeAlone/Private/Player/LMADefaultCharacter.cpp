@@ -8,7 +8,7 @@
 #include "Kismet/KismetMathLibrary.h"
 #include "Components/DecalComponent.h"
 #include "Components/InputComponent.h"
-
+#include "Components/LMAHealthComponent.h"
 ALMADefaultCharacter::ALMADefaultCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -31,6 +31,7 @@ ALMADefaultCharacter::ALMADefaultCharacter()
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
+	HealthComponent = CreateDefaultSubobject<ULMAHealthComponent>("HealthComponent");
 }
 
 void ALMADefaultCharacter::BeginPlay()
