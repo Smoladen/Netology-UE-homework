@@ -5,11 +5,13 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 
+
 #include "LMADefaultCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
 class ULMAHealthComponent;
+class UAnimMontage;
 
 UCLASS()
 class LEAVEMEALONE_API ALMADefaultCharacter : public ACharacter
@@ -47,6 +49,11 @@ protected:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "ComponentsHealth")
 	ULMAHealthComponent* HealthComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Animation")
+	UAnimMontage* DeathMontage;
+
+
 public:	
 	virtual void Tick(float DeltaTime) override;
 
@@ -61,4 +68,7 @@ private:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void AdjustCameraZoom(float Value);
+	void OnDeath();
+	void RotationPlayerOnCursor();
+	void OnHealthChanged(float NewHealth);
 };
