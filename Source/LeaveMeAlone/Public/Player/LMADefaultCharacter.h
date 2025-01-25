@@ -20,7 +20,8 @@ class LEAVEMEALONE_API ALMADefaultCharacter : public ACharacter
 
 public:
 	ALMADefaultCharacter();
-
+	UFUNCTION()
+	ULMAHealthComponent* GetHealthComponent() const { return HealthComponent; }
 protected:
 	virtual void BeginPlay() override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
@@ -53,7 +54,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Animation")
 	UAnimMontage* DeathMontage;
 
-
+	
 public:	
 	virtual void Tick(float DeltaTime) override;
 

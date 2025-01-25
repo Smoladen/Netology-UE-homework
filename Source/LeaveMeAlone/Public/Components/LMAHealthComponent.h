@@ -21,7 +21,8 @@ public:
 	float GetHealth() const { return Health; }
 	UFUNCTION(BlueprintCallable)
 	bool IsDead() const;
-
+	bool AddHealth(float NewHealth);
+	bool IsHealthFull() const;
 	FOnDeath OnDeath;
 	FOnHealthChanged OnHealthChanged;
 protected:
