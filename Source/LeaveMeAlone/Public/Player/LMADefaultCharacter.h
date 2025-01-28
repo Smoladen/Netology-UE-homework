@@ -54,7 +54,28 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Animation")
 	UAnimMontage* DeathMontage;
 
-	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Sprint")
+	bool isSprinting = false;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
+	float SprintSpeed = 600.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sprint")
+	float MaxStamina = 350.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Sprint")
+	float Stamina = 350.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
+	float StaminaDrain = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
+	float StaminaRefill = 1.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
+	float MinStaminaToRun = 20.0f;
+
+	//bool HasStamina;
 public:	
 	virtual void Tick(float DeltaTime) override;
 
@@ -65,6 +86,8 @@ private:
 	float YRotation = -75.0f;
 	float Armlength = 1400.0f;
 	float FOV = 55.0f;
+	float defaultWalkSpeed = 300.0f;
+	
 
 	void MoveForward(float Value);
 	void MoveRight(float Value);
@@ -72,4 +95,8 @@ private:
 	void OnDeath();
 	void RotationPlayerOnCursor();
 	void OnHealthChanged(float NewHealth);
+
+	void StartSprint();
+	void StopSprint();
+	void UpdateStamina();
 };

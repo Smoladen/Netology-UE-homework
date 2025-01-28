@@ -1,4 +1,4 @@
-// LeaveMeAlone Game by Netologya. All rights Reserved
+﻿// LeaveMeAlone Game by Netologya. All rights Reserved
 
 
 #include "Player/LMADefaultCharacter.h"
@@ -57,6 +57,8 @@ void ALMADefaultCharacter::Tick(float DeltaTime)
 	if (!(HealthComponent->IsDead())) {
 		RotationPlayerOnCursor();
 	}
+
+	UpdateStamina();
 }
 
 void ALMADefaultCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -66,6 +68,8 @@ void ALMADefaultCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("MoveForward", this, &ALMADefaultCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ALMADefaultCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("ZoomCamera", this, &ALMADefaultCharacter::AdjustCameraZoom);
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ALMADefaultCharacter::StartSprint);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ALMADefaultCharacter::StopSprint);
 }
 
 void ALMADefaultCharacter::MoveForward(float Value) {
@@ -76,6 +80,48 @@ void ALMADefaultCharacter::MoveRight(float Value) {
 	AddMovementInput(GetActorRightVector(), Value);
 }
 
+void ALMADefaultCharacter::StartSprint()
+{
+	
+	if (Stamina > MinStaminaToRun)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+		isSprinting = true;
+	}
+}
+
+void ALMADefaultCharacter::StopSprint()
+{
+	GetCharacterMovement()->MaxWalkSpeed = defaultWalkSpeed;
+	isSprinting = false;
+}
+
+void ALMADefaultCharacter::UpdateStamina()
+{
+	if (isSprinting)
+	{
+	
+		Stamina -= StaminaDrain;
+
+		if (Stamina <= 0.0f)
+		{
+			Stamina = 0.0f;
+			StopSprint();
+		}
+	}
+	else
+	{
+		
+		Stamina += StaminaRefill;
+		if (Stamina > MaxStamina)
+		{
+			Stamina = MaxStamina;
+		}
+	}
+
+
+	//HasStamina = Stamina > MinStaminaToRun;
+}
 void ALMADefaultCharacter::AdjustCameraZoom(float Value) {
 	if (!SpringArmComponent)
 		return;
