@@ -12,7 +12,7 @@ class UCameraComponent;
 class USpringArmComponent;
 class ULMAHealthComponent;
 class UAnimMontage;
-
+class ULMAWeaponComponent;
 UCLASS()
 class LEAVEMEALONE_API ALMADefaultCharacter : public ACharacter
 {
@@ -75,7 +75,9 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sprint")
 	float MinStaminaToRun = 20.0f;
 
-	//bool HasStamina;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	ULMAWeaponComponent* WeaponComponent;
+
 public:	
 	virtual void Tick(float DeltaTime) override;
 

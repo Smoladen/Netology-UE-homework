@@ -10,7 +10,7 @@
 #include "Components/InputComponent.h"
 #include "Components/LMAHealthComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-
+#include "Weapon/LMAWeaponComponent.h"
 
 
 ALMADefaultCharacter::ALMADefaultCharacter()
@@ -36,6 +36,7 @@ ALMADefaultCharacter::ALMADefaultCharacter()
 	bUseControllerRotationRoll = false;
 
 	HealthComponent = CreateDefaultSubobject<ULMAHealthComponent>("HealthComponent");
+	WeaponComponent = CreateDefaultSubobject<ULMAWeaponComponent>("Weapon");
 }
 
 void ALMADefaultCharacter::BeginPlay()
