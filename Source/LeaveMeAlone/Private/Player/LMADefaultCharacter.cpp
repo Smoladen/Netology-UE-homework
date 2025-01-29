@@ -71,6 +71,7 @@ void ALMADefaultCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInpu
 	PlayerInputComponent->BindAxis("ZoomCamera", this, &ALMADefaultCharacter::AdjustCameraZoom);
 	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &ALMADefaultCharacter::StartSprint);
 	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &ALMADefaultCharacter::StopSprint);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed,WeaponComponent, &ULMAWeaponComponent::Fire);
 }
 
 void ALMADefaultCharacter::MoveForward(float Value) {
