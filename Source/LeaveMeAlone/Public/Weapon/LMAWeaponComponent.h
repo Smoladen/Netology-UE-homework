@@ -27,12 +27,14 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
 	UAnimMontage* ReloadMontage;
+
 	bool AnimReloading = false;
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void SpawnWeapon();
 	void Fire();
+
 	void Reload();
 	void InitAnimNotify();
 	void OnNotifyReloadFinished(USkeletalMeshComponent* SkeletalMesh);
