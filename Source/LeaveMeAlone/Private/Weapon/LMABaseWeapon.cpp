@@ -28,7 +28,10 @@ void ALMABaseWeapon::Tick(float DeltaTime)
 }
 
 void ALMABaseWeapon::Fire() {
-	Shoot();
+	if (!IsCurrentClipEmpty())
+	{
+		Shoot();
+	}
 }
 void ALMABaseWeapon::Shoot()
 {
@@ -60,8 +63,4 @@ void ALMABaseWeapon::DecrementBullets()
 {
 	CurrentAmmoWeapon.Bullets--;
 	UE_LOG(LogWeapon, Display, TEXT("Bullets = %s"),*FString::FromInt(CurrentAmmoWeapon.Bullets));
-	if (IsCurrentClipEmpty())
-	{
-		ChangeClip();
-	}
 }

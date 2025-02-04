@@ -1,6 +1,6 @@
 // LeaveMeAlone Game by Netologya. All rights Reserved
 
-
+DEFINE_LOG_CATEGORY_STATIC(LogWeapon, All, All);
 #include "Weapon/LMAWeaponComponent.h"
 #include "Weapon/LMABaseWeapon.h"
 #include "GameFramework/Character.h" 
@@ -56,7 +56,9 @@ void ULMAWeaponComponent::Fire()
 }
 void ULMAWeaponComponent::InitAnimNotify()
 {
-	if (!ReloadMontage)return;
+	if (!ReloadMontage) {
+		return;
+	}
 	const auto NotifiesEvents = ReloadMontage->Notifies;
 	for (auto NotifyEvent : NotifiesEvents)
 	{
@@ -70,10 +72,15 @@ void ULMAWeaponComponent::InitAnimNotify()
 }
 void ULMAWeaponComponent::OnNotifyReloadFinished(USkeletalMeshComponent*SkeletalMesh)
 {
+	UE_LOG(LogWeapon, Display, TEXT("Reload animation finished!"));
+
 	const auto Character = Cast<ACharacter>(GetOwner());
 	if (Character->GetMesh() == SkeletalMesh)
 	{
 		AnimReloading = false;
+		if (Weapon) {
+			Weapon->ChangeClip();
+		}
 	}
 }
 bool ULMAWeaponComponent::CanReload() const
@@ -83,7 +90,7 @@ bool ULMAWeaponComponent::CanReload() const
 void ULMAWeaponComponent::Reload()
 {
 	if (!CanReload()) return;
-	Weapon->ChangeClip();
+
 	AnimReloading = true;
 	ACharacter* Character = Cast<ACharacter>(GetOwner());
 	Character->PlayAnimMontage(ReloadMontage);
