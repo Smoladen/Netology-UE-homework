@@ -6,7 +6,6 @@ DEFINE_LOG_CATEGORY_STATIC(LogWeapon, All, All);
 #include "GameFramework/Character.h" 
 #include "Animations/LMAReloadFinishedAnimNotify.h"
 
-// Sets default values for this component's properties
 ULMAWeaponComponent::ULMAWeaponComponent()
 {
 
@@ -15,7 +14,6 @@ ULMAWeaponComponent::ULMAWeaponComponent()
 }
 
 
-// Called when the game starts
 void ULMAWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
@@ -25,12 +23,10 @@ void ULMAWeaponComponent::BeginPlay()
 }
 
 
-// Called every frame
 void ULMAWeaponComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// ...
 }
 
 void ULMAWeaponComponent::SpawnWeapon()
@@ -47,11 +43,19 @@ void ULMAWeaponComponent::SpawnWeapon()
 		}
 	}
 }
-void ULMAWeaponComponent::Fire()
+void ULMAWeaponComponent::StartFire()
 {
 	if (Weapon && !AnimReloading)
 	{
-		Weapon->Fire();
+		Weapon->StartFire();
+	}
+}
+
+void ULMAWeaponComponent::StopFire()
+{
+	if (Weapon)
+	{
+		Weapon->StopFire();
 	}
 }
 void ULMAWeaponComponent::InitAnimNotify()

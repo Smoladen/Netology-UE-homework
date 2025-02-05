@@ -44,9 +44,16 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Weapon")
 	FAmmoWeapon AmmoWeapon{ 30, 0, true };
+
+	FTimerHandle FireTimerHandle;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
+	float FireRate = 0.1f;
 public:	
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
+	void StartFire();
+	void StopFire();
 	void  Fire();
 	void Shoot();
 	void DecrementBullets();

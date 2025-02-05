@@ -30,10 +30,10 @@ protected:
 
 	bool AnimReloading = false;
 public:	
-	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void SpawnWeapon();
-	void Fire();
+	void StartFire();
+	void StopFire();
 
 	void Reload();
 	void InitAnimNotify();
