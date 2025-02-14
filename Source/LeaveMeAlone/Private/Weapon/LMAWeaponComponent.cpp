@@ -37,10 +37,10 @@ void ULMAWeaponComponent::SpawnWeapon()
 		const auto Character = Cast<ACharacter>(GetOwner());
 		if (Character)
 		{
-			FAttachmentTransformRules
-				AttachmentRules(EAttachmentRule::SnapToTarget, false);
+			FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, false);
 			Weapon->AttachToComponent(Character->GetMesh(), AttachmentRules,"r_Weapon_Socket");
 		}
+		Weapon->OnWeaponClipEmpty.AddDynamic(this, &ULMAWeaponComponent::OnClipEmpty);
 	}
 }
 void ULMAWeaponComponent::StartFire()
@@ -89,13 +89,33 @@ void ULMAWeaponComponent::OnNotifyReloadFinished(USkeletalMeshComponent*Skeletal
 }
 bool ULMAWeaponComponent::CanReload() const
 {
-	return !AnimReloading;
+	return !AnimReloading && !Weapon->IsClipFull();
 }
 void ULMAWeaponComponent::Reload()
 {
-	if (!CanReload()) return;
+	//if (!CanReload()) return;
 
-	AnimReloading = true;
-	ACharacter* Character = Cast<ACharacter>(GetOwner());
-	Character->PlayAnimMontage(ReloadMontage);
+	//AnimReloading = true;
+	//ACharacter* Character = Cast<ACharacter>(GetOwner());
+	//Character->PlayAnimMontage(ReloadMontage);
+	if (Weapon)
+	{
+		ReloadWeapon();
+	}
+}
+
+void ULMAWeaponComponent::OnClipEmpty() {
+	UE_LOG(LogWeapon, Warning, TEXT("Test"));
+	ReloadWeapon();
+}
+void ULMAWeaponComponent::ReloadWeapon() {
+	if (Weapon && !Weapon->IsClipFull() && CanReload())
+	{
+		AnimReloading = true;
+		ACharacter* Character = Cast<ACharacter>(GetOwner());
+		if (Character)
+		{
+			Character->PlayAnimMontage(ReloadMontage);
+		}
+	}
 }

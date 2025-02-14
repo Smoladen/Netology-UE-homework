@@ -6,6 +6,8 @@
 #include "GameFramework/Actor.h"
 #include "LMABaseWeapon.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWeaponClipEmpty);
+
 USTRUCT(BlueprintType)
 struct FAmmoWeapon
 {
@@ -49,8 +51,11 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	float FireRate = 0.1f;
-public:	
 
+
+public:	
+	UPROPERTY(BlueprintAssignable, Category = "Weapon")
+	FOnWeaponClipEmpty OnWeaponClipEmpty;
 	virtual void Tick(float DeltaTime) override;
 	void StartFire();
 	void StopFire();
@@ -58,5 +63,6 @@ public:
 	void Shoot();
 	void DecrementBullets();
 	bool IsCurrentClipEmpty() const;
+	bool IsClipFull() const;
 	void ChangeClip();
 };

@@ -72,6 +72,17 @@ bool ALMABaseWeapon::IsCurrentClipEmpty() const
 
 void ALMABaseWeapon::DecrementBullets()
 {
+	if(CurrentAmmoWeapon.Bullets > 0){
 	CurrentAmmoWeapon.Bullets--;
 	UE_LOG(LogWeapon, Display, TEXT("Bullets = %s"),*FString::FromInt(CurrentAmmoWeapon.Bullets));
+	}
+
+	if (IsCurrentClipEmpty()) {
+		UE_LOG(LogWeapon, Warning, TEXT("Clip is Empty"));
+		OnWeaponClipEmpty.Broadcast();
+	}
+}
+
+bool ALMABaseWeapon::IsClipFull() const {
+	return CurrentAmmoWeapon.Bullets == AmmoWeapon.Bullets;
 }
