@@ -56,6 +56,8 @@ protected:
 public:	
 	UPROPERTY(BlueprintAssignable, Category = "Weapon")
 	FOnWeaponClipEmpty OnWeaponClipEmpty;
+	FAmmoWeapon GetCurrentAmmoWeapon() const { return CurrentAmmoWeapon; }
+
 	virtual void Tick(float DeltaTime) override;
 	void StartFire();
 	void StopFire();

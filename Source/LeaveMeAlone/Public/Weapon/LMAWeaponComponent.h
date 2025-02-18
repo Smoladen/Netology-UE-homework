@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Weapon/LMABaseWeapon.h"
 #include "LMAWeaponComponent.generated.h"
 
 class ALMABaseWeapon;
@@ -32,6 +33,9 @@ protected:
 	bool AnimReloading = false;
 public:	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION(BlueprintCallable)
+	bool GetCurrentWeaponAmmo(FAmmoWeapon& AmmoWeapon) const;
+
 	void SpawnWeapon();
 	void StartFire();
 	void StopFire();

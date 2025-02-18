@@ -76,7 +76,7 @@ void ULMAWeaponComponent::InitAnimNotify()
 }
 void ULMAWeaponComponent::OnNotifyReloadFinished(USkeletalMeshComponent*SkeletalMesh)
 {
-	UE_LOG(LogWeapon, Display, TEXT("Reload animation finished!"));
+	//UE_LOG(LogWeapon, Display, TEXT("Reload animation finished!"));
 
 	const auto Character = Cast<ACharacter>(GetOwner());
 	if (Character->GetMesh() == SkeletalMesh)
@@ -93,11 +93,6 @@ bool ULMAWeaponComponent::CanReload() const
 }
 void ULMAWeaponComponent::Reload()
 {
-	//if (!CanReload()) return;
-
-	//AnimReloading = true;
-	//ACharacter* Character = Cast<ACharacter>(GetOwner());
-	//Character->PlayAnimMontage(ReloadMontage);
 	if (Weapon)
 	{
 		ReloadWeapon();
@@ -105,7 +100,7 @@ void ULMAWeaponComponent::Reload()
 }
 
 void ULMAWeaponComponent::OnClipEmpty() {
-	UE_LOG(LogWeapon, Warning, TEXT("Test"));
+	//UE_LOG(LogWeapon, Warning, TEXT("Test"));
 	ReloadWeapon();
 }
 void ULMAWeaponComponent::ReloadWeapon() {
@@ -118,4 +113,14 @@ void ULMAWeaponComponent::ReloadWeapon() {
 			Character->PlayAnimMontage(ReloadMontage);
 		}
 	}
+}
+
+bool ULMAWeaponComponent::GetCurrentWeaponAmmo(FAmmoWeapon& AmmoWeapon) const
+{
+	if (Weapon)
+	{
+		AmmoWeapon = Weapon->GetCurrentAmmoWeapon();
+		return true;
+	}
+	return false;
 }
