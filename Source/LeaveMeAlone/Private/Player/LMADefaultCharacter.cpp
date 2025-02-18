@@ -138,11 +138,11 @@ void ALMADefaultCharacter::AdjustCameraZoom(float Value) {
 void ALMADefaultCharacter::OnDeath()
 {
 	CurrentCursor->DestroyRenderState_Concurrent();
-	
+
 	PlayAnimMontage(DeathMontage);
-	
+
 	GetCharacterMovement()->DisableMovement();
-	
+
 	SetLifeSpan(5.0f);
 
 	if (Controller) {
@@ -162,8 +162,8 @@ void ALMADefaultCharacter::RotationPlayerOnCursor() {
 	}
 }
 
-//new
 void ALMADefaultCharacter::OnHealthChanged(float NewHealth)
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, FString::Printf(TEXT("Health = %f"),NewHealth));
 }
+

@@ -78,6 +78,9 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
 	ULMAWeaponComponent* WeaponComponent;
 
+	//new
+
+
 public:	
 	virtual void Tick(float DeltaTime) override;
 
@@ -101,4 +104,6 @@ private:
 	void StartSprint();
 	void StopSprint();
 	void UpdateStamina();
+
+
 };
